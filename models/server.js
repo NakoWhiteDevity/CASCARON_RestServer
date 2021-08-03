@@ -15,8 +15,18 @@ class Server {
     }
 
     routes(){
-        this.app.get('/', (req, res) => {
-            res.send('Hello World');
+        this.app.get('/api', (req, res) => {
+            
+            /*
+            res.json({
+                msg:'peticion JSON realizada'
+            });
+            */
+
+            res.status(403).json({
+                msg:'oopsie'
+            })
+
         });
     }
 
