@@ -15,19 +15,23 @@ class Server {
     }
 
     routes(){
+        
         this.app.get('/api', (req, res) => {
-            
-            /*
             res.json({
-                msg:'peticion JSON realizada'
+                msg:'get Gucci'
             });
-            */
-
-            res.status(403).json({
-                msg:'oopsie'
-            })
-
         });
+        this.app.post('/api', (req, res) => {
+            res.json({
+                msg:'post Gucci'
+            });
+        });
+        this.app.delete('/api', (req, res) => {
+            res.json({
+                msg:'delete Gucci'
+            });
+        });
+
     }
 
 }
