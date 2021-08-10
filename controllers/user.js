@@ -1,5 +1,6 @@
 //Si especificas el tipo de objeto que es, te saltas el tipado, por eso hay que añadir TS:
 const { response , request } = require('express');
+const Usuario = require('../models/usuario');
 
 const usuariosGET = (req = request,res = response ) => {
     
@@ -21,11 +22,13 @@ const usuariosPUT = (req,res = response ) => {
     })
 }
 
-const usuariosPOST = (req,res = response) => {
+const usuariosPOST = async(req,res = response) => {
     const body = req.body;
+    const usuario = new Usuario(body);
+    await usuario.save();
     res.json({
         msg:'post API - controlador',
-        body
+        usuario
     });
 }
 

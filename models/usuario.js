@@ -1,13 +1,13 @@
 /*
-    {
-        nombre: 'Carlos Test',
-        correo: 'Carlos@correo.es',
-        password: 'carlospass',
-        img: 'cadena',
-        rol: 'ADMIN',
-        estado: boolean,
-        google: boolean,
-    }
+{
+    "nombre":"Carlos Test",
+    "correo":"Carlos@correo.es",
+    "password":"carlospass",
+    "img":"cadena",
+    "rol":"ADMIN",
+    "estado":"true",
+    "google":"false"
+}
 */
 
 const { Schema , model } = require('mongoose');
