@@ -1,6 +1,7 @@
 //Si especificas el tipo de objeto que es, te saltas el tipado, por eso hay que añadir TS:
 const { response , request } = require('express');
 const Usuario = require('../models/usuario');
+const bcjs = require('bcryptjs');
 
 const usuariosGET = (req = request,res = response ) => {
     
@@ -23,9 +24,18 @@ const usuariosPUT = (req,res = response ) => {
 }
 
 const usuariosPOST = async(req,res = response) => {
-    const body = req.body;
-    const usuario = new Usuario(body);
+    const { nombre,correo,password,rol } = req.body;
+    const usuario = new Usuario({nombre,correo,password,rol});
+
+    //Verificar si existe el correo.
+
+    //Encriptar la contraseña:
+    const salt = bcjs.genSaltSync(3);
+    usuario.password = bcjs.hashSync(password,salt);
+
+    //guardar en BD.
     await usuario.save();
+    
     res.json({
         msg:'post API - controlador',
         usuario
