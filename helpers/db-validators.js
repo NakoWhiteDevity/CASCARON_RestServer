@@ -1,0 +1,23 @@
+const Role = require('../models/role');
+const usuario = require('../models/usuario');
+
+const esRolvalido = async(rol = "") => {
+    const eROL = await Role.findOne({rol});
+    if(!eROL){ throw new Error(`${rol} no esta permitido`) }
+}
+
+const emailExiste = async(correo = "") => {
+    const eMAIL = await usuario.where({correo});
+    if(eMAIL == []){ throw new Error(`El correo ya esta en uso`) };
+}
+
+/*
+//Verificar si existe el correo.
+    const existeEmail = await Usuario.findOne({ correo });
+    if(existeEmail){ return res.status(400).json({msg:'El correo ya esta registrado'}) }
+*/
+
+module.exports = {
+    esRolvalido,
+    emailExiste
+}
