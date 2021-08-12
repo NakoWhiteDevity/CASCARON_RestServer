@@ -9,11 +9,10 @@ const usuariosGET = async(req = request,res = response ) => {
     //limit : limite , skip : desde .
     //const usuarios = await Usuario.find().limit(5).skip(1);
 
-    const query = { estado : true };
 
-    const usuarios = await Usuario.find(query);
-    const total = await Usuario.countDocuments(query);
-    res.json({total,usuarios});
+    const usuarios = await Usuario.find();
+    console.log(usuarios);
+    res.json({usuarios});
     
     /*
     const {a,b = 'vacio',c} = req.query;
