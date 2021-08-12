@@ -17,7 +17,7 @@ const usuarioSchema = Schema({
     correo:     { type:String , required:[true,'errorCorreo'] },
     password:   { type:String , required:[true,'errorPass'] },
     img:        { type:String , required:[false] },
-    rol:        { type:String , required:[true] , enum:['ADMIN','USER'] },
+    rol:        { type:String , required:[true] },
     estado:     { type:Boolean , default : true },
     google:     { type:Boolean , default : false }
 });
