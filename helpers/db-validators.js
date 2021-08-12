@@ -1,5 +1,5 @@
 const Role = require('../models/role');
-const usuario = require('../models/usuario');
+const Usuario = require('../models/usuario');
 
 const esRolvalido = async(rol = "") => {
     const eROL = await Role.findOne({rol});
@@ -7,8 +7,9 @@ const esRolvalido = async(rol = "") => {
 }
 
 const emailExiste = async(correo = "") => {
-    const eMAIL = await usuario.where({correo});
-    if(eMAIL == []){ throw new Error(`El correo ya esta en uso`) };
+    const eMAIL = await Usuario.findOne({correo});
+    console.log(eMAIL);
+    if(eMAIL){ throw new Error(`El correo ya esta en uso`) };
 }
 
 /*
