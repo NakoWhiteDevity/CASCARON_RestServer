@@ -3,20 +3,33 @@ const { response , request } = require('express');
 const Usuario = require('../models/usuario');
 const bcjs = require('bcryptjs');
 
-const usuariosGET = (req = request,res = response ) => {
+const usuariosGET = async(req = request,res = response ) => {
     
+    //Atento, que todo lo que viene del query es string
+    //limit : limite , skip : desde .
+    //const usuarios = await Usuario.find().limit(5).skip(1);
+
+    const query = { estado : true };
+
+    const usuarios = await Usuario.find(query);
+    const total = await Usuario.countDocuments(query);
+    res.json({total,usuarios});
+    
+    /*
     const {a,b = 'vacio',c} = req.query;
     
     res.json({
         msg:'get API - controlador',
         a,b,c
     })
+    */
+
 }
 
 const usuariosPUT = async(req,res = response ) => {
     
     const { id } = req.params;
-    const { password , google , correo , ...resto } = req.body;
+    const { _id , password , google , correo , ...resto } = req.body;
 
     //Validar contra DB:
     if( password ){
