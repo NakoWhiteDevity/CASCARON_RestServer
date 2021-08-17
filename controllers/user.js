@@ -69,6 +69,7 @@ const usuariosPOST = async(req,res = response) => {
 const usuariosDELETE = async(req,res = response) => {
     
     const { id } = req.params;
+    const uid = req.uid;
 
     /*
     borrarlo fisicamente
@@ -78,7 +79,7 @@ const usuariosDELETE = async(req,res = response) => {
     //poner el usuario en false:
     const usuario = await Usuario.findByIdAndUpdate(id,{estado:false});
 
-    res.json(usuario);
+    res.json({usuario});
 }
 
 module.exports = {
