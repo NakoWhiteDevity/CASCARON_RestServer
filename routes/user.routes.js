@@ -8,12 +8,14 @@ const Role = require('../models/role');
 const _r = Router();
 
 _r.get('/',usuariosGET);
+
 _r.put('/:id',[
     check('id','no es un ID valido').isMongoId(),
     check('id').custom( existeUser ),
     check('rol').custom( esRolvalido ),
     validarCampos
 ],usuariosPUT);
+
 _r.post('/',[
     check('nombre','El nombre es obligatorio').not().isEmpty(),
     check('password','El password es obligatorio').isLength({min:6}),
@@ -22,7 +24,12 @@ _r.post('/',[
     check('rol').custom( esRolvalido ),
     validarCampos
 ],usuariosPOST);
-_r.delete('/',usuariosDELETE);
+
+_r.delete('/:id',[
+    check('id','no es un ID valido').isMongoId(),
+    check('id').custom( existeUser ),
+    validarCampos
+],usuariosDELETE);
 
 
 module.exports = _r
