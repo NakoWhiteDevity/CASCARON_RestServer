@@ -9,30 +9,37 @@ db.usuarios.insertMany([
         "nombre":"Carlos",
         "correo":"Carlos@correo.es",
         "password":"carlospass",
-        "rol":"ADMIN_ROLE",
+        "rol":"ADMIN_ROLE"
+
     },
     {
         "nombre":"Juan",
         "correo":"Juan@correo.es",
         "password":"Juanpass",
-        "rol":"ADMIN_ROLE",
+        "rol":"ADMIN_ROLE"
     },
     {
         "nombre":"Alberto",
         "correo":"Alberto@correo.es",
         "password":"Albertopass",
-        "rol":"ADMIN_ROLE",
+        "rol":"ADMIN_ROLE"
     },
     {
         "nombre":"Laura",
         "correo":"Laura@correo.es",
         "password":"Laurapass",
-        "rol":"ADMIN_ROLE",
+        "rol":"ADMIN_ROLE"
     },
     {
         "nombre":"Lorena",
         "correo":"Lorena@correo.es",
         "password":"Lorenapass",
-        "rol":"VENTAS_ROLE",
+        "rol":"VENTAS_ROLE"
     },
+    {
+        "nombre":"Joaquin",
+        "correo":"Joaquintest@test.es",
+        "password":"Buenardovichado",
+        "rol":"USER_ROLE"
+    }
 ])

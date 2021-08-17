@@ -8,11 +8,15 @@ const usuariosGET = async(req = request,res = response ) => {
     //Atento, que todo lo que viene del query es string
     //limit : limite , skip : desde .
     //const usuarios = await Usuario.find().limit(5).skip(1);
+    
+    const query = { estado : true };
+    /*
+    const usuarios = await Usuario.find(query);
+    const total = await Usuario.countDocuments(query);
+    */
 
-
-    const usuarios = await Usuario.find();
-    console.log(usuarios);
-    res.json({usuarios});
+    const resp = await Promise.all([Usuario.countDocuments(query),Usuario.find(query)]);
+    res.json(resp);
     
     /*
     const {a,b = 'vacio',c} = req.query;
