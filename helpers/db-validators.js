@@ -8,7 +8,6 @@ const esRolvalido = async(rol = "") => {
 
 const emailExiste = async(correo = "") => {
     const eMAIL = await Usuario.findOne({correo});
-    console.log(eMAIL);
     if(eMAIL){ throw new Error(`El correo ya esta en uso`) };
 }
 
