@@ -5,3 +5,5 @@ const RoleSchema = Schema({
 });
 
 module.exports = model( 'Role' , RoleSchema );
+
+//const dataSchema = new Schema({..}, { collection: 'data' });

@@ -10,6 +10,7 @@ const validarJWT = async(req = request,res = response,next ) => {
         const { uid } = jwt.verify(token,process.env.SOPKEY);
         req.uid = uid;
         const autenticado = await usuario.findById(uid);
+        if (!autenticado.estado){return res.status(401).json({msg:'El usuario ya fue borrado'})}
         req.autenticado = {autenticado,token};
         next();
     } catch(err) {
