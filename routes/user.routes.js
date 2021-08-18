@@ -2,9 +2,16 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const { usuariosGET, usuariosPOST, usuariosDELETE, usuariosPUT } = require('../controllers/user');
 const { esRolvalido , emailExiste , existeUser } = require('../helpers/db-validators');
+
+/*
 const { validarCampos } = require('../middlewares/validarcampos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { esAdminRol , tieneRol } = require('../middlewares/validar-roles');
+*/
+
+//Puedes referirte al fichero o llamarlo index y no referirte a el. Yo me refiero a el aunque no sea necesario.
+const { validarCampos,validarJWT,tieneRol } = require('../middlewares/index');
+
 const Role = require('../models/role');
 
 const _r = Router();
