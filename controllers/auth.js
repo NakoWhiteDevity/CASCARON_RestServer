@@ -2,6 +2,7 @@ const { response } = require('express');
 const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const { gJWT } = require('../helpers/gJWT');
+const { googleV } = require('../helpers/googleVerify');
 
 
 const login = async(req , res = response) => {
@@ -27,14 +28,19 @@ const login = async(req , res = response) => {
 
 }
 
-const googleSI = (req,res = response) => {
-    
-    const {id_token} = req.body;
-    
-    res.json({
-        msg:'todo OK - googleSI',
-        id_token
-    })
+const googleSI = async(req,res = response) => {
+    try {
+        const {id_token} = req.body;
+        const googleU = await googleV(id_token);
+        res.json({
+            msg:'todo OK - googleSI',
+            googleU
+        })
+    } catch (err) {
+        res.status(400).json({
+            msg:'token de google no válido'
+        })
+    }
 }
 
 module.exports = {
