@@ -3,6 +3,7 @@ const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const { gJWT } = require('../helpers/gJWT');
 const { googleV } = require('../helpers/googleVerify');
+const usuario = require('../models/usuario');
 
 
 const login = async(req , res = response) => {
@@ -31,11 +32,20 @@ const login = async(req , res = response) => {
 const googleSI = async(req,res = response) => {
     try {
         const {id_token} = req.body;
-        const googleU = await googleV(id_token);
+        const { correo , nombre , img } = await googleV(id_token);
+        const data = {nombre,correo,img,google:true};
+        const nuevo = new Usuario(data);
+        await nuevo.save();
+
+        //generar el JWT:
+        const token = await gJWT(usuario.id);
+
+
         res.json({
             msg:'todo OK - googleSI',
-            googleU
-        })
+            token
+        });
+        
     } catch (err) {
         res.status(400).json({
             msg:'token de google no válido'
