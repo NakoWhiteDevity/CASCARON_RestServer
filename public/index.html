@@ -16,12 +16,25 @@
     <script>
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
+        
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        
         var id_token = googleUser.getAuthResponse().id_token;
         console.log(`${id_token.slice(0,25)}...`);
+
+        //FETCH:
+        fetch('http://localhost:4200/api/auth/google',{
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            body: JSON.stringify(id_token)
+        })
+        .then( resp => resp.json() )
+        .then(console.log)
+        .catch(console.log);
+
     }
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
