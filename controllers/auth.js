@@ -33,9 +33,18 @@ const googleSI = async(req,res = response) => {
     try {
         const {id_token} = req.body;
         const { correo , nombre , img } = await googleV(id_token);
-        const data = {nombre,correo,img,google:true};
-        const nuevo = new Usuario(data);
-        await nuevo.save();
+        let comprobar = await Usuario.findOne({correo});
+        let usuario = undefined;
+        if(comprobar == null){
+            const data = {nombre,correo,img,google:true};
+            const nuevo = new Usuario(data);
+            await nuevo.save();
+            usuario = nuevo;
+            usuario.id = usuario._id
+        } else {
+            usuario = comprobar ; usuario.id = comprobar._id ;
+        }
+        
 
         //generar el JWT:
         const token = await gJWT(usuario.id);
