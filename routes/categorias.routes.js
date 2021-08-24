@@ -1,14 +1,18 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { crearCategoria } = require('../controllers/categorias');
-const { validarJWT , validarCampos } = require('../middlewares');
+const { validarJWT , validarCampos , existeCategoria } = require('../middlewares');
 
 const _r = Router();
 
 //{{url}}/api/categorias
 
+//necesitas un middleware que valide el id de usuario.
+
 //Obtener todas las categorias - publico
-_r.get('/',(req,res) => {
+_r.get('/',[
+    check('id').custom( existeCategoria )
+],(req,res) => {
     res.json('G U C C I - get');
 });
 

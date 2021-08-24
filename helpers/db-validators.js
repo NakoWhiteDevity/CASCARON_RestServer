@@ -16,6 +16,10 @@ const existeUser = async(id) => {
     if(!eID){ throw new Error('El usuario no existe') }
 }
 
+const existeCategoria = async() => {
+
+}
+
 /*
 //Verificar si existe el correo.
     const existeEmail = await Usuario.findOne({ correo });
@@ -25,5 +29,6 @@ const existeUser = async(id) => {
 module.exports = {
     esRolvalido,
     emailExiste,
-    existeUser
+    existeUser,
+    existeCategoria
 }

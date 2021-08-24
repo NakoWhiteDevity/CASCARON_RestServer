@@ -1,6 +1,11 @@
 const { response } = require('express');
 const { Categoria } = require('../models');
 
+//obtenerCategorias - paginado - total - populate de moongose.
+//obtenerCategoria - populate ()
+//actualizarCategoria.
+//borrarCategoria
+
 const crearCategoria = async(req,res = response) => {
     
     try{
