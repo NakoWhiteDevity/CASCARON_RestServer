@@ -30,8 +30,8 @@ class Server {
     }
 
     routes(){
-        this.app.use(this.paths.usuarios,require('../routes/auth.routes'))
-        this.app.use(this.paths.auth,require('../routes/user.routes'));
+        this.app.use(this.paths.usuarios,require('../routes/user.routes'))
+        this.app.use(this.paths.auth,require('../routes/auth.routes'));
         this.app.use(this.paths.categorias,require('../routes/categorias.routes'));
     }
 
