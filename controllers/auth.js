@@ -3,7 +3,6 @@ const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
 const { gJWT } = require('../helpers/gJWT');
 const { googleV } = require('../helpers/googleVerify');
-const usuario = require('../models/usuario');
 
 
 const login = async(req , res = response) => {
