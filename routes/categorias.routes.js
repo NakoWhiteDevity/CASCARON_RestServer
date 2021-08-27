@@ -39,6 +39,8 @@ _r.delete('/:id',[
     validarJWT,
     esAdminRol,
     check('id','no es un id de categoria válido').isMongoId(),
+    check('id').custom( existeCategoria ),
+    validarCampos
 ],borrarCatSingular)
 
 

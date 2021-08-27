@@ -7,21 +7,27 @@ const { Categoria } = require('../models');
 //borrarCategoria
 
 const obtenerCat = async(req,res = response) => {
+    
+    //Puedes ver la sugerencia de paginado y filtro de activo en el controlador de usuarios.
+    
     try {
-        const busqueda = await Categoria.find().populate('usuario');
+        //const busqueda = await Categoria.find().populate('usuario');
+        const busqueda = await Categoria.find().populate('usuario','nombre');
         res.status(200).json(busqueda);
     } catch (err) {
         res.status(400).json({
             msg : "Error en obtener categorias",
         });
     }
+
 }
 
 const obtenerCatSingular = async(req,res = response) => {
 
     try {
         const { id } = req.params;
-        const busqueda = await Categoria.findById( id ).populate('usuario');
+        //const busqueda = await Categoria.findById( id ).populate('usuario');
+        const busqueda = await Categoria.findById( id ).populate('usuario','nombre');
         res.status(200).json(busqueda);
     } catch (err) {
         res.status(400).json({
@@ -31,18 +37,20 @@ const obtenerCatSingular = async(req,res = response) => {
 
 }
 
+//La opción en FindByIdAndUpdate de {new:true} devuelve el nuevo registro con la modificación realizada
 const actualizarCatSingular = async(req,res = response) => {
 
     try {
-        const nuevonombre = req.body.nombre;
         const { id } = req.params;
-        const cambio = await Categoria.findByIdAndUpdate(id,{nombre:nuevonombre});
-        res.status(200).json(cambio)
+        let { nombre } = req.body; nombre = nombre.toUpperCase();
+        const uid = req.autenticado.autenticado._id;
+        const categoria = await Categoria.findByIdAndUpdate(id,{nombre,usuario:uid},{new : true});
+        res.status(200).json(categoria);
     } catch (err) {
         res.status(400).json({
             msg : "Error al actualizar la categoria",
             err
-        });
+        })
     }
 
 }
@@ -51,7 +59,7 @@ const borrarCatSingular = async(req,res = response) => {
     
     try {
         const { id } = req.params;
-        const cambio = await Categoria.findByIdAndDelete(id);
+        const cambio = await Categoria.findByIdAndUpdate(id,{estado:false},{new:true});
         res.status(200).json(cambio);
     } catch (err) {
         res.status(400).json({
