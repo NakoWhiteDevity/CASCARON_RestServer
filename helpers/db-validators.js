@@ -1,3 +1,4 @@
+const Categoria = require('../models/categoria');
 const Role = require('../models/role');
 const Usuario = require('../models/usuario');
 
@@ -16,8 +17,9 @@ const existeUser = async(id) => {
     if(!eID){ throw new Error('El usuario no existe') }
 }
 
-const existeCategoria = async() => {
-    
+const existeCategoria = async(id) => {
+    const eCAT = await Categoria.findById(id);
+    if(!eCAT){ throw new Error('La categoria no existe') }
 }
 
 /*
