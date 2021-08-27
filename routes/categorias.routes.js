@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { crearCategoria } = require('../controllers/categorias');
-const { validarJWT , validarCampos , existeCategoria } = require('../middlewares');
+const { crearCategoria, obtenerCat } = require('../controllers/categorias');
+const { validarJWT , validarCampos } = require('../middlewares');
+const { existeCategoria } = require('../helpers/db-validators')
 
 const _r = Router();
 
@@ -10,11 +11,7 @@ const _r = Router();
 //necesitas un middleware que valide el id de usuario.
 
 //Obtener todas las categorias - publico
-_r.get('/',[
-    check('id').custom( existeCategoria )
-],(req,res) => {
-    res.json('G U C C I - get');
-});
+_r.get('/',obtenerCat);
 
 //Obtener una categoria por id - publico
 _r.get('/:id',(req,res) => {

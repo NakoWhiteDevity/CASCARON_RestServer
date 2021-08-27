@@ -6,6 +6,18 @@ const { Categoria } = require('../models');
 //actualizarCategoria.
 //borrarCategoria
 
+const obtenerCat = async(req,res = response) => {
+    try {
+        const busqueda = await Categoria.find().populate('usuario');
+        res.status(200).json(busqueda);
+    } catch (err) {
+        res.status(400).json({
+            msg : "Error en obtener categorias",
+            err
+        });
+    }
+}
+
 const crearCategoria = async(req,res = response) => {
     
     try{
@@ -32,5 +44,6 @@ const crearCategoria = async(req,res = response) => {
 }
 
 module.exports = {
-    crearCategoria
+    crearCategoria,
+    obtenerCat
 }

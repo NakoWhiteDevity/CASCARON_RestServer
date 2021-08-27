@@ -17,7 +17,7 @@ const existeUser = async(id) => {
 }
 
 const existeCategoria = async() => {
-
+    
 }
 
 /*

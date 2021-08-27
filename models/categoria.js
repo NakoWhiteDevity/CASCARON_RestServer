@@ -1,12 +1,18 @@
 const { Schema , model } = require('mongoose');
 
-const CategoriaSchema = Schema({
+const categoriaSchema = Schema({
     nombre:{type:String,required:[true,'el nombre es obligatorio'],unique:true},
     estado:{type:Boolean,default:true,required:true},
     usuario:{type:Schema,type:Schema.Types.ObjectId,ref:'Usuario',required:true}
 });
 
-module.exports = model('Categoria',CategoriaSchema);
+categoriaSchema.methods.toJSON = function() {
+    const { __v , ...categoria } = this.toObject();
+    return categoria;
+
+}
+
+module.exports = model('Categoria',categoriaSchema);
 
 /*
 const RoleSchema = Schema({
