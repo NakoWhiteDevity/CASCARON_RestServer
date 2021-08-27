@@ -20,13 +20,29 @@ const obtenerCat = async(req,res = response) => {
 const obtenerCatSingular = async(req,res = response) => {
 
     try {
-        const { id } = req.params
-        const busqueda = await Categoria.findById( id ).populate('usuario')
-        res.status(200).json(busqueda)
+        const { id } = req.params;
+        const busqueda = await Categoria.findById( id ).populate('usuario');
+        res.status(200).json(busqueda);
     } catch (err) {
         res.status(400).json({
             msg : "Error al obtener la categoria",
         })
+    }
+
+}
+
+const actualizarCatSingular = async(req,res = response) => {
+
+    try {
+        const nuevonombre = req.body.nombre;
+        const { id } = req.params;
+        const cambio = await Categoria.findByIdAndUpdate(id,{nombre:nuevonombre});
+        res.status(200).json(cambio)
+    } catch (err) {
+        res.status(400).json({
+            msg : "Error al actualizar la categoria",
+            err
+        });
     }
 
 }
@@ -59,5 +75,6 @@ const crearCategoria = async(req,res = response) => {
 module.exports = {
     crearCategoria,
     obtenerCat,
-    obtenerCatSingular
+    obtenerCatSingular,
+    actualizarCatSingular
 }
