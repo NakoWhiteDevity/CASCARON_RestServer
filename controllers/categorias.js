@@ -47,6 +47,21 @@ const actualizarCatSingular = async(req,res = response) => {
 
 }
 
+const borrarCatSingular = async(req,res = response) => {
+    
+    try {
+        const { id } = req.params;
+        const cambio = await Categoria.findByIdAndDelete(id);
+        res.status(200).json(cambio);
+    } catch (err) {
+        res.status(400).json({
+            msg : "Error al borrar la categoria",
+            err
+        });
+    }
+
+}
+
 const crearCategoria = async(req,res = response) => {
     
     try{
@@ -76,5 +91,6 @@ module.exports = {
     crearCategoria,
     obtenerCat,
     obtenerCatSingular,
-    actualizarCatSingular
+    actualizarCatSingular,
+    borrarCatSingular
 }
