@@ -7,8 +7,26 @@
 // FIJATE MUCHO EN LA PRACTICA DE CATEGORIAS! :
 
 const { response } = require('express');
-const { Categoria } = require('../models');
 const { Producto } = require('../models');
+
+const obtenerProductoSingular = async(req,res = response) => {
+    
+    try {
+        const { id } = req.params;
+        const busqueda = await Producto.findById(id).populate('usuario','nombre').populate('categoria','nombre');
+        res.status(200).json(busqueda);
+    } catch(err) { res.status(400).json({msg:"Error al obtener los productos"}) };
+
+}
+
+const obtenerPRODUCTOS = async(req,res = response) => {
+
+    try {
+        const busqueda = await Producto.find().populate('usuario','nombre').populate('categoria','nombre');
+        res.status(200).json(busqueda);
+    } catch(err) { res.status(400).json({msg:"Error al obtener los productos"}) };
+
+}
 
 const crearPRODUCTO = async(req,res = response) => {
     
@@ -43,5 +61,7 @@ const crearPRODUCTO = async(req,res = response) => {
 
 module.exports = {
     crearPRODUCTO,
+    obtenerPRODUCTOS,
+    obtenerProductoSingular
 }
 
