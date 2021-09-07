@@ -8,14 +8,14 @@ const ProductoSchema = Schema({
     categoria:{type:Schema.Types.ObjectId,ref:'Categoria',required:true},
     descripcion:{type:String},
     disponible:{type:Boolean,default:true}
-});
+},{ collection : 'productos' });
 
 ProductoSchema.methods.toJSON = function(){
     const {__v,estado,...data} = this.toObject();
     return data
 }
 
-module.exports = model('Producto',ProductoSchema,{ collection : 'productos' });
+module.exports = model('Producto',ProductoSchema);
 
 /*
 const { Schema , model } = require('mongoose');

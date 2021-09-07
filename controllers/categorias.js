@@ -8,7 +8,7 @@ const { Categoria } = require('../models');
 
 const obtenerCat = async(req,res = response) => {
     
-    //Puedes ver la sugerencia de paginado y filtro de activo en el controlador de usuarios.
+    //Puedes ver la sugerencia de paginado y filtro de activo en el controlador de usuarios - usuariosGET.
     
     try {
         //const busqueda = await Categoria.find().populate('usuario');
