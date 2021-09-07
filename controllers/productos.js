@@ -59,9 +59,20 @@ const crearPRODUCTO = async(req,res = response) => {
 
 }
 
+const borrarPRODUCTO = async(req,res = response) => {
+
+    try {
+        const { id } = req.params;
+        const cambio = await Producto.findByIdAndUpdate(id,{disponible:false},{new:true});
+        res.status(200).json(cambio);
+    } catch(err) { res.status(400).json({err}) };
+
+}
+
 module.exports = {
     crearPRODUCTO,
     obtenerPRODUCTOS,
-    obtenerProductoSingular
+    obtenerProductoSingular,
+    borrarPRODUCTO
 }
 

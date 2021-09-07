@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validarJWT , validarCampos } = require('../middlewares');
+const { validarJWT , validarCampos , propietarioyoadmin } = require('../middlewares');
 const { existeCategoria , existeProducto } = require('../helpers/db-validators');
-const { crearPRODUCTO , obtenerPRODUCTOS , obtenerProductoSingular } = require('../controllers/productos');
+const { crearPRODUCTO , obtenerPRODUCTOS , obtenerProductoSingular, borrarPRODUCTO } = require('../controllers/productos');
 
 const _r = Router();
 
@@ -23,6 +23,14 @@ _r.post('/:id',[
     check('id').custom( existeCategoria ),
     validarCampos
 ],crearPRODUCTO);
+
+//Borrar producto - solo si se es admin o creador del producto
+_r.delete('/:id',[
+    validarJWT,
+    check('id').custom( existeProducto ),
+    propietarioyoadmin,
+    validarCampos
+],borrarPRODUCTO);
 
 
 
