@@ -6,12 +6,24 @@ const { Usuario,Categoria,Producto } = require('../models');
 const buscarUsuarios = async(termino = '',res = response) => {
 
     const esMongoID = ObjectId.isValid(termino);
+    
     if(esMongoID){
         const usuario = await Usuario.findById(termino);
-        res.status(200).json({
+        return res.status(200).json({
             resultados : (usuario) ? [usuario] : []
         })
     }
+
+    const regex = new RegExp( termino, 'i' );
+    
+    const usuarios = await Usuario.find({
+        $or:[{nombre:regex},{correo:regex}],
+        $and:[{estado:true}]
+    });
+    
+    res.status(200).json({
+        resultados : usuarios
+    })
 
 }
 
