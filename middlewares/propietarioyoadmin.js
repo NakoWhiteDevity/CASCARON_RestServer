@@ -4,7 +4,7 @@ const producto = require('../models/producto');
 const propietarioyoadmin = async(req,res = response, next) => {
 
     const devuelveX = (boleano) => {if(boleano){return "X"} else {return ""}};
-    let flag = { fuser:false , fprod:false };
+    let flag = { esadmin:false , espropietario:false };
     
     try {
         
@@ -13,15 +13,17 @@ const propietarioyoadmin = async(req,res = response, next) => {
         let ids = { idusuario , rolusuario };
 
         //comprobamos si es admin:
-        if( rolusuario !== 'ADMIN_ROLE' ){ flag.fuser = true };
+        if( rolusuario == 'ADMIN_ROLE' ){ flag.esadmin = true };
 
         //comprobamos si es propietario:
         const busquedaproducto = await producto.findById(productoid).populate('usuario');
-        if( busquedaproducto.usuario._id !== idusuario ){ flag.fprod = true };
+        if( busquedaproducto.usuario._id == idusuario ){ flag.espropietario = true };
 
-        if( !flag.fuser && !flag.fprod ){next()} else {return res.status(401).json({msg:'El usuario no es ni administrador ni propietario del recurso'})}
-
-        //`[${devuelveX(flag.fuser)}] ADMINISTRADOR | [${devuelveX(flag.fprod)}] PROPIETARIO`
+        if(flag.esadmin){next()}else{
+            if(flag.espropietario){next()}else{
+                res.status(401).json({msg:'No eres administrador ni propietario del recurso'})
+            }
+        }
     
     } catch(err){res.status(400).json({err})};
     

@@ -1,8 +1,8 @@
-// Obtener todos los productos.
-// Obtener producto por id(param),
-// Crear producto - PRIVADO : Requiere token.
-// Actualizar producto - PRIVADO : Requiere token.
-// Borrar una categoria - PRIVADO : Requiere token . ADMIN : Solo por administradores.
+// [X]Obtener todos los productos.
+// [X]Obtener producto por id(param),
+// [X]Crear producto - PRIVADO : Requiere token.
+// [/]Actualizar producto - PRIVADO : Requiere token. Solo para administradores y propietarios del recurso.
+// [X]Borrar un producto - PRIVADO : Requiere token . Solo para administradores y propietarios del recurso.
 
 // FIJATE MUCHO EN LA PRACTICA DE CATEGORIAS! :
 
@@ -59,6 +59,14 @@ const crearPRODUCTO = async(req,res = response) => {
 
 }
 
+const modificarPRODUCTO = async(req,res = response) => {
+
+    try {
+
+    } catch(err){ res.status(400).json({err}) };
+
+}
+
 const borrarPRODUCTO = async(req,res = response) => {
 
     try {
@@ -73,6 +81,7 @@ module.exports = {
     crearPRODUCTO,
     obtenerPRODUCTOS,
     obtenerProductoSingular,
-    borrarPRODUCTO
+    borrarPRODUCTO,
+    modificarPRODUCTO
 }
 
