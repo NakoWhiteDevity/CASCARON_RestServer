@@ -1,7 +1,7 @@
 // [X]Obtener todos los productos.
 // [X]Obtener producto por id(param),
 // [X]Crear producto - PRIVADO : Requiere token.
-// [/]Actualizar producto - PRIVADO : Requiere token. Solo para administradores y propietarios del recurso.
+// [X]Actualizar producto - PRIVADO : Requiere token. Solo para administradores y propietarios del recurso.
 // [X]Borrar un producto - PRIVADO : Requiere token . Solo para administradores y propietarios del recurso.
 
 // FIJATE MUCHO EN LA PRACTICA DE CATEGORIAS! :
@@ -34,8 +34,8 @@ const crearPRODUCTO = async(req,res = response) => {
         const data = {
             nombre : req.body.nombre,
             usuario : req.autenticado.autenticado._id,
-            categoria : req.params.id,
-            descripcion : "Descripción de pruebas para el desarrollo de la app."
+            categoria : req.body.categoria,
+            descripcion : req.body.descripcion
         }
         const producto = new Producto(data);
         await producto.save();
@@ -63,7 +63,7 @@ const modificarPRODUCTO = async(req,res = response) => {
 
     try {
         const { id } = req.params;
-        const { disponible , _id , usuario , categoria , ...resto } = req.body;
+        const { disponible , _id , usuario , ...resto } = req.body;
         const cambio = await Producto.findByIdAndUpdate(id,resto,{new:true});
         res.status(200).json(cambio);
     } catch(err){ res.status(400).json({err}) };

@@ -17,10 +17,10 @@ _r.get('/:id',[
 _r.get('/',obtenerPRODUCTOS);
 
 //Crear Producto - privado y exclusivo para cualquiera con un token válido
-_r.post('/:id',[
+_r.post('/',[
     validarJWT,
     check('nombre','El nombre es obligatorio').not().isEmpty(),
-    check('id').custom( existeCategoria ),
+    check('categoria').custom( existeCategoria ),
     validarCampos
 ],crearPRODUCTO);
 
@@ -29,6 +29,7 @@ _r.put('/:id',[
     validarJWT,
     check('id','no es un ID valido').isMongoId(),
     check('id').custom( existeProducto ),
+    check('categoria').custom( existeCategoria ),
     propietarioyoadmin,
     validarCampos
 ],modificarPRODUCTO)
