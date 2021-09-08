@@ -26,7 +26,11 @@ _r.post('/:id',[
 
 //Modificar un producto - solo para admins y propietarios:
 _r.put('/:id',[
-
+    validarJWT,
+    check('id','no es un ID valido').isMongoId(),
+    check('id').custom( existeProducto ),
+    propietarioyoadmin,
+    validarCampos
 ],modificarPRODUCTO)
 
 //Borrar producto - solo si se es admin o creador del producto

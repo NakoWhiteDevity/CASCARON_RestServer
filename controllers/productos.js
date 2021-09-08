@@ -62,7 +62,10 @@ const crearPRODUCTO = async(req,res = response) => {
 const modificarPRODUCTO = async(req,res = response) => {
 
     try {
-
+        const { id } = req.params;
+        const { disponible , _id , usuario , categoria , ...resto } = req.body;
+        const cambio = await Producto.findByIdAndUpdate(id,resto,{new:true});
+        res.status(200).json(cambio);
     } catch(err){ res.status(400).json({err}) };
 
 }
