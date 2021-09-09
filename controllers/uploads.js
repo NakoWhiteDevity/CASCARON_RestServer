@@ -1,43 +1,16 @@
-const path = require('path');
 const { response } = require('express');
-const { v4: uuidv4 } = require('uuid');
-const eValidas = ['png','jpg','jpeg','gif'];
+const { subirArchivo } = require('../helpers');
 
 const cargarArchivo = async(req,res = response) => {
     
-    try {
-        if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-            res.status(400).send({msg:'No hay archivos en la petición'});
-            return;
-        }
-        const { archivo } = req.files;
-        const extension = archivo.name.split('.')[archivo.name.split('.').length - 1];
-        const nTEMP = `${uuidv4()}.${extension}`;
-        const uploadPath = path.join(__dirname, '../uploads/', nTEMP);
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
+        res.status(400).send({msg:'No hay archivos en la petición'});
+        return;
+    }
 
-        //validar la extensión:
-        if(eValidas.includes(extension)){
-            archivo.mv(uploadPath, (err) => {
-                if (err) {
-                    return res.status(500).json({err});
-                }
-                res.json({msg:`El archivo se subio a ${uploadPath}`});
-            });
-        } else {
-            return res.status(400).json({msg:`La extensión ${extension} no es válida.`});
-        }
+    const pathCompleto = await subirArchivo(req.files);
 
-        /*
-        const uploadPath = path.join(__dirname, '../uploads/', archivo.name);
-        archivo.mv(uploadPath, (err) => {
-            if (err) {
-                return res.status(500).json({err});
-            }
-            res.json({msg:`El archivo se subio a ${uploadPath}`});
-        });
-        */
-
-    } catch(err) {res.status(400).json({err})};
+    res.json({path:pathCompleto});
 
 }
 
