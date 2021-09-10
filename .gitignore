@@ -1,2 +1,3 @@
 /node_modules
 /dockertesting/imgs
+./*.code-workspace
