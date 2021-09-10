@@ -28,6 +28,11 @@ const existeProducto = async(id) => {
     if(!ePRO){ throw new Error('el producto no existe') }
 }
 
+const coleccionesPermitidas = async(coleccion = '',colecciones = []) => {
+    const incluida = colecciones.includes(coleccion);
+    if(!incluida){throw new Error(`La coleccion ${ coleccion } no esta permitida`)}
+}
+
 /*
 //Verificar si existe el correo.
     const existeEmail = await Usuario.findOne({ correo });
@@ -39,5 +44,6 @@ module.exports = {
     emailExiste,
     existeUser,
     existeCategoria,
-    existeProducto
+    existeProducto,
+    coleccionesPermitidas
 }
