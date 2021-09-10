@@ -6,7 +6,7 @@ const subirArchivo = async(ficheros , eValidas = ['png','jpg','jpeg','gif'], car
         const { archivo } = ficheros;
         const extension = archivo.name.split('.')[archivo.name.split('.').length - 1];
         const nTEMP = `${uuidv4()}.${extension}`;
-        const uploadPath = path.join(__dirname, '../uploads/', nTEMP);
+        const uploadPath = path.join(__dirname,'../uploads/',`./${carpeta}`,nTEMP);
         //validar la extensión:
         if(!eValidas.includes(extension)){ return rj(`La extensión ${extension} no esta permitida`) };
         archivo.mv(uploadPath,(err) => {

@@ -8,9 +8,13 @@ const cargarArchivo = async(req,res = response) => {
         return;
     }
 
-    const pathCompleto = await subirArchivo(req.files);
-
-    res.json({path:pathCompleto});
+    try {
+        //Si no deseas ocupar todos los argumentos de una funcion, puedes. EJ : subirArchivo(req.files,undefined,carpetatexto);
+        const pathCompleto = await subirArchivo(req.files,undefined,'imagenes');
+        res.json({path:pathCompleto});
+    } catch(msg) {
+        res.status(400).json({msg});
+    }
 
 }
 

@@ -37,6 +37,7 @@ class Server {
         this.app.use(fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/'
+            //createParentPath:true - Crea el directorio al grabar el fichero de no existir dicho directorio.
         }));
     }
 
