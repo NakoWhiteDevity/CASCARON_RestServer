@@ -76,14 +76,12 @@ const mostrarImagen = async(req,res = response) => {
             return res.status(500).json({msg:'se me olvido validar esto'});
     }
 
-    //comprobar si tenemos la imagen
     if(modelo.img){
-        //Hay que borrar la imagen del servidor:
         const pathimg = path.join( __dirname,'../uploads',`./${coleccion}`,modelo.img);
         if(fs.existsSync(pathimg)){return res.sendFile(pathimg)};
+    } else {
+        return res.sendFile(path.join(__dirname,'../uploads','./imgsprueba','relleno.jpg'));
     }
-    
-    res.json({msg:'falta placeholder'});
 
 }
 
