@@ -54,7 +54,41 @@ const actualizarImagen = async(req,res = response) => {
 
 };
 
+const mostrarImagen = async(req,res = response) => {
+    
+    const fbijsonerror = (coleccion) => {return res.status(400).json({msg:`No existe un ${coleccion} con el id introducido`});}
+    
+    const { id , coleccion } = req.params;
+
+    let modelo;
+
+    switch(coleccion){
+        case 'usuarios':
+            modelo = await Usuario.findById(id);
+            if(!modelo){return fbijsonerror(coleccion)};
+        break;
+        case 'productos':
+            modelo = await Producto.findById(id);
+            if(!modelo){return fbijsonerror(coleccion)};
+        break;
+
+        default:
+            return res.status(500).json({msg:'se me olvido validar esto'});
+    }
+
+    //comprobar si tenemos la imagen
+    if(modelo.img){
+        //Hay que borrar la imagen del servidor:
+        const pathimg = path.join( __dirname,'../uploads',`./${coleccion}`,modelo.img);
+        if(fs.existsSync(pathimg)){return res.sendFile(pathimg)};
+    }
+    
+    res.json({msg:'falta placeholder'});
+
+}
+
 module.exports = {
     cargarArchivo,
-    actualizarImagen
+    actualizarImagen,
+    mostrarImagen
 }
